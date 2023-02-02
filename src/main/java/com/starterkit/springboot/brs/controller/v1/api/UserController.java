@@ -6,10 +6,7 @@ import com.starterkit.springboot.brs.dto.response.Response;
 import com.starterkit.springboot.brs.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -18,6 +15,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/api/v1/user")
+@CrossOrigin(maxAge = 36000, origins = "*" , allowedHeaders = "*")
 @Api(value = "brs-application", description = "Operations pertaining to user management in the BRS application")
 public class UserController {
     @Autowired

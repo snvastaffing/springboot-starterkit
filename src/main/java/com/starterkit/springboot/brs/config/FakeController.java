@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -23,6 +20,7 @@ import javax.validation.constraints.NotNull;
  * Created by Arpit Khandelwal.
  */
 @RestController
+@CrossOrigin(maxAge = 36000, origins = "*" , allowedHeaders = "*")
 @RequestMapping("/api")
 @Api(value = "brs-application", description = "Operations pertaining to user login and logout in the BRS application")
 public class FakeController {

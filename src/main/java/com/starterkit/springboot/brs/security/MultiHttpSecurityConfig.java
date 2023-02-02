@@ -5,8 +5,10 @@ import com.starterkit.springboot.brs.security.api.ApiJWTAuthorizationFilter;
 import com.starterkit.springboot.brs.security.form.CustomAuthenticationSuccessHandler;
 import com.starterkit.springboot.brs.security.form.CustomLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -34,6 +36,12 @@ public class MultiHttpSecurityConfig {
         private CustomUserDetailsService userDetailsService;
 
         @Override
+        @Bean
+        public AuthenticationManager authenticationManagerBean() throws Exception {
+            return super.authenticationManagerBean();
+        }
+
+        @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth
                     .userDetailsService(userDetailsService)
@@ -43,11 +51,13 @@ public class MultiHttpSecurityConfig {
         // @formatter:off
         protected void configure(HttpSecurity http) throws Exception {
             http
+
                     .csrf()
                     .disable()
                     .antMatcher("/api/**")
                     .authorizeRequests()
                     .antMatchers("/api/v1/user/signup").permitAll()
+                    .antMatchers("/apiauth/authenticate").permitAll()
                     .anyRequest()
                     .authenticated()
                     .and()
@@ -55,7 +65,6 @@ public class MultiHttpSecurityConfig {
                     .authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                     .and()
                     .addFilter(new ApiJWTAuthenticationFilter(authenticationManager()))
-                    .addFilter(new ApiJWTAuthorizationFilter(authenticationManager()))
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         }
@@ -94,6 +103,7 @@ public class MultiHttpSecurityConfig {
                     .antMatchers("/").permitAll()
                     .antMatchers("/login").permitAll()
                     .antMatchers("/signup").permitAll()
+                    .antMatchers("/apiauth/authenticate").permitAll()
                     .antMatchers("/dashboard/**").hasAuthority("ADMIN")
                     .anyRequest()
                     .authenticated()

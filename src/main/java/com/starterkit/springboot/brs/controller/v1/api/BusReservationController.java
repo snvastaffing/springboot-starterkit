@@ -27,6 +27,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/v1/reservation")
+@CrossOrigin(maxAge = 36000, origins = "*" , allowedHeaders = "*")
 @Api(value = "brs-application", description = "Operations pertaining to agency management and ticket issue in the BRS application")
 public class BusReservationController {
     @Autowired
