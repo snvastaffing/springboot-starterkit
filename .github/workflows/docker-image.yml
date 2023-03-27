@@ -1,0 +1,19 @@
+# Workflow Name 
+name: Docker Image CI
+# Defining the trigger 
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+# List of tasks that we are going to perform here 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+      steps:
+        - run: echo "I am just triggered and prtforming something"
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Build the Docker image
+#       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
