@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-      steps:
+    steps:
         - run: echo "I am just triggered and prtforming something"
 #     steps:
 #     - uses: actions/checkout@v3
